@@ -1,6 +1,6 @@
 ## How to get started?
  
-1.	Login with your NSID – click on the top right icon at [GWF Vis](http://gwfvis.usask.ca/RiverFlow/).
+1.	Login with your NSID – click on the top right icon at [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
 1.	Create a file by right clicking on the left panel directory labeled with your nsid.
 1.	A newly created file will already have some code written in it.
 1.	Execute the code by clicking the top right triangle icon. This will create a default layout for geographic visualization in a new tab as follows. 
@@ -10,7 +10,7 @@
      alt="default map"
      style="width: 100px; " /-->
 
-## Understanding the default code.
+## Understanding the default code
 1. Load the default vis configurations.
  
     ```py
@@ -52,52 +52,35 @@ dataset = 'http://gwfvis.usask.ca/RiverFlow/api/file/fetch/public/datasets/catch
 
 You can add a new layer (e.g., polygons, rivers, etc.) to the map by using `gwfvis.add_map_element()` with two parameters. 
 
-1. The `vis_config` itself
-1. The type of the layer (`'geojson-layer'`, `'tile-layer'`, etc.).
+1. The `vis_config` itself.
+1. The type of the layer (e.g., `'geojson-layer'`, `'tile-layer'`, etc.). See [details](#All-current-provided-types).
 
 ```py
-catchment = gwfvis.add_map_element(vis_config, 'geojson-layer')
+polygons = gwfvis.add_map_element(vis_config, 'geojson-layer')
 ```
 We now configure the properties of the layer by using `gwfvis.update_props()`.
 ```py  
 gwfvis.update_props(
-    catchment, 
+    polygons, # configure the properties of the layer
     {   
-        'layerName': 'Catchment', # a name to show on the layer control
-        'type': 'overlay', # 
-        'dataSource': catchment_dataset
+        'layerName': 'Catchment', # a layer name to show over the map
+        'type': 'overlay', # overlay, because map defined as the base layer 
+        'dataSource': catchment_dataset #data source
     }
 )
 ```
+Try `polygons.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
+![default map](./images/addlayer.png)
 
+See [config color schemes](#Config-color-schemes) for changing colors of the polygons, or [config style](#Config-style) for more details.
+
+<!-- We should chnage the style, not only color [line width - transperancy]-->
+ 
 ## How to add user controls to the map?
 
+<!-- BEING EDITED FROM HERE -->
 
-#####
 
-
-A feature can be added by importing a plugin, configuring its properties and adding it to `vis_config`. Click [here](#All-current-provided-plugins) to see a list of plugins available.
-
-#### Example: Creating a polygon layer on the map
-1. A sample dataset `catchment.gwfvisdb` is being loaded from the datasets directory. 
-    ```py
-    dataURL = 'http://gwfvis.usask.ca/RiverFlow/api/file/fetch/public/datasets/catchment.gwfvisdb'
-    ```
-1. The plugin to create a polygon layer is `geojson-layer`, which has two properties: `layerName` to show on the map, and `dataSource` to read the data from.
-    ```py
-    polygon_layer = {
-        'import': 'geojson-layer',
-        'props': {'layerName': 'Catchment', 'dataSource': dataURL}
-    } 
-    ```
-1. Add the layer to `vis_config`. 
-    ```py 
-    gwfvis.add_plugin(vis_config, polygon_layer)
-    ```
-    ![default map](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/map.jpg)
-_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `polygons.py`._
-
-Check out [config color schemes](#Config-color-schemes)
 
 ## How to add a legend for a polygon layer?
 As the polygons are usually colored, adding a legend would be helpful to understand the colors.

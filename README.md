@@ -1,8 +1,8 @@
 # __GWFVIS__
 ## Introduction
-GWFVIS is a programming platform to build interactive visual interfaces to analyze  spatio-temporal data (e.g., hydrological model output, spatio-temporal weather or time series data, etc.). GWFVIS allows you to build powerful visual interfaces using a small set of programming constructs, and thus reduces development time and effort. 
+GWFVis is a programming platform to build interactive visual interfaces to analyze  spatio-temporal data (e.g., hydrological model output, spatio-temporal weather or time series data, etc.). GWFVis allows you to build powerful visual interfaces using a small set of programming constructs, and thus reduces development time and effort. 
 
-You can assess the GWFVIS platform at [http://gwfvis.usask.ca/RiverFlow/](http://gwfvis.usask.ca/RiverFlow/)
+You can assess the GWFVis platform at [http://gwfvis.usask.ca/RiverFlow/](http://gwfvis.usask.ca/RiverFlow/)
 
 ![default map](./images/intro-1.png)
 
