@@ -4,7 +4,7 @@ GWFVis is a platform to build interactive visual interfaces to analyze  spatio-t
 
 You can assess the GWFVis platform at [http://gwfvis.usask.ca/RiverFlow/](http://gwfvis.usask.ca/RiverFlow/)
 
-![default map](./images/intro-1.png)
+![introduction](./images/intro-1.png)
 
 ## Getting Started 
 
@@ -16,14 +16,14 @@ The left panel provides an access to the file structure. Here you can find a set
 1. Execute the script by clicking the execute button (the triangle icon on the top right).
 
 
-![default map](./images/intro-2.png)
+![console output](./images/intro-2.png)
 
 ## A Sample Script to Create an Interactive Interface
 
 Let's now run the sample script `catchment.py` by first navigating to  `catchment.py` and then clicking the execute button (the triangle icon on the top right). This will create an interactive interface on a new tab. 
 
 
-![default map](./images/intro-5.gif)
+![interactive interface](./images/intro-5.gif)
 
 ## Creating Your Own Script
 
@@ -32,6 +32,8 @@ You may edit the files in the public directory, but the system does not allow yo
 1. Login with your NSID – click on the top right icon at [GWF Vis](http://gwfvis.usask.ca/RiverFlow/). You will see a new directory on the left panel which is labeled with your NSID. You can create a new file in this directory.
 1. To create a new file, right click on the directory labeled with your NSID and enter a file name at the given prompt. You will see this file created in your directory.
 1.	The newly created file will already have some code written in it. 	Execute the code by clicking the execute button (the triangle icon on the top right). This will open a default layout for geographic visualization in a new tab. 
+
+![login and create](./images/intro-6.gif)
 
 ## Documentation
 
