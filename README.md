@@ -8,11 +8,11 @@ You can assess the GWFVis platform at [http://gwfvis.usask.ca/RiverFlow/](http:/
 
 ## Getting Started 
 
-GWFVis consists of a programming interface, which includes a left panel, a programming panel and an output panel. 
+GWFVis consists of a programming interface, which includes a side panel, a programming panel and an output panel. 
 
-The left panel provides an access to the file structure. Here you can find a set of scripts that are provided to you at the public directory. For example, the following two steps will run the sample script `welcome.py` to print the string  `Welcome!` on the output panel.
+The side panel provides an access to the file structure. Here you can find a set of scripts that are provided to you at the public directory. For example, the following two steps will run the sample script `welcome.py` to print the string  `Welcome!` on the output panel.
 
-1. Navigate to `welcome.py` on the left panel and click on the name `welcome.py`. This loads the file content or script on the main view. 
+1. Navigate to `welcome.py` on the side panel and click on the name `welcome.py`. This loads the file content or script on the main view. 
 1. Execute the script by clicking the execute button (the triangle icon on the top right).
 
 
@@ -29,7 +29,7 @@ Let's now run the sample script `catchment.py` by first navigating to  `catchmen
 
 You may edit the files in the public directory, but the system does not allow you to save them. To write and save your own script, you will need to login to the platform. 
 
-1. Login with your NSID – click on the top right icon at [GWF Vis](http://gwfvis.usask.ca/RiverFlow/). You will see a new directory on the left panel which is labeled with your NSID. You can create a new file in this directory.
+1. Login with your NSID – click on the top right icon at [GWF Vis](http://gwfvis.usask.ca/RiverFlow/). You will see a new directory on the side panel which is labeled with your NSID. You can create a new file in this directory.
 1. To create a new file, right click on the directory labeled with your NSID and enter a file name at the given prompt. You will see this file created in your directory.
 1.	The newly created file will already have some code written in it. 	Execute the code by clicking the execute button (the triangle icon on the top right). This will open a default layout for geographic visualization in a new tab. 
 

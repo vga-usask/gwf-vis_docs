@@ -1,9 +1,9 @@
-## How to get started?
+## Getting Started
  
 1.	Login with your NSID – click on the top right icon at [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
 1.	Create a file by right clicking on the left panel directory labeled with your nsid.
 1.	A newly created file will already have some code written in it.
-1.	Execute the code by clicking the top right triangle icon. This will create a default layout for geographic visualization in a new tab as follows. 
+1.	Execute the code by clicking the top right triangle icon. This will create a default layout for geographic visualization in a new tab. 
 ![default map](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/map.jpg)
 
 <!--img src="https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/map.jpg"
@@ -41,14 +41,14 @@
     gwfvis.render(vis_config)
     ```
 
-## Defining a Dataset Variable
+## Defining a dataset variable
 
-A sample dataset `catchment.gwfvisdb` is being loaded from the datasets directory. We will use this dataset later.
+A sample dataset `catchment.gwfvisdb` is being loaded from the datasets directory. 
 ```py
 dataset = 'http://gwfvis.usask.ca/RiverFlow/api/file/fetch/public/datasets/catchment.gwfvisdb'
 ```
 
-## How to add a new layer to the map?
+## Adding a new layer to the map
 
 You can add a new layer (e.g., polygons, rivers, etc.) to the map by using `gwfvis.add_map_element()` with two parameters. 
 
@@ -56,7 +56,9 @@ You can add a new layer (e.g., polygons, rivers, etc.) to the map by using `gwfv
 1. The type of the layer (e.g., `'geojson-layer'`, `'tile-layer'`, etc.). See [details](#All-current-provided-types).
 
 ```py
-polygons = gwfvis.add_map_element(vis_config, 'geojson-layer')
+polygons = gwfvis.add_map_element(
+    vis_config, 'geojson-layer' # create the layer
+)
 ```
 We now configure the properties of the layer by using `gwfvis.update_props()`.
 ```py  
@@ -65,7 +67,7 @@ gwfvis.update_props(
     {   
         'layerName': 'Catchment', # a layer name to show over the map
         'type': 'overlay', # overlay, because map defined as the base layer 
-        'dataSource': catchment_dataset #data source
+        'dataSource': dataset # data source
     }
 )
 ```
@@ -76,13 +78,41 @@ See [config color schemes](#Config-color-schemes) for changing colors of the pol
 
 <!-- We should chnage the style, not only color [line width - transperancy]-->
  
-## How to add user controls to the map?
+## Exploring the series data associated with the polygons (e.g., over time, soil depth, etc.)
 
-<!-- BEING EDITED FROM HERE -->
+To explore the series data associated with the polygon layer, we need create the follwing two controls over the map. 
 
+1. `variable-control`: This allows us to select a particular variable associated to the polygon using a dropdown menu (e.g., temp)
+2. `dimension-control`: This allows us to select a dimension of the selected variable over which it varies (e.g., time, soil depth).  
 
+Both of these controls can be added using `gwfvis.add_main_view_element()` and then configuring the properties by using `gwfvis.update_props()`.
 
-## How to add a legend for a polygon layer?
+```py
+    variable_control = gwfvis.add_main_view_element(
+        vis_config, 'variable-control'    # create the control
+    )
+    gwfvis.update_props(
+        variable_control, # configure the properties of the layer
+        {    
+            'width': '40rem',  # set the width of the container 
+            'dataSource': dataset # data source 
+        }
+    ) 
+    dimension_control = gwfvis.add_main_view_element(
+        vis_config, 'dimension-control'   # create the control
+    )
+    gwfvis.update_props(
+        dimension_control, # configure the properties of the layer
+        {     
+            'width': '40rem',  # set the width of the container           
+            'dataSource': dataset # data source
+        }
+    ) 
+```
+When you interact with these controls, the polygon layer gets updated. 
+Try `series_data.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
+![Series Data](./images/series.png)
+<!-- ## How to add a legend for a polygon layer?
 As the polygons are usually colored, adding a legend would be helpful to understand the colors.
 
 #### Example: Adding a __legend__
@@ -104,8 +134,8 @@ As the polygons are usually colored, adding a legend would be helpful to underst
     gwfvis.add_plugin(vis_config, legend, 'main')
     ```
     
-Check out [config color schemes](#Config-color-schemes)
-
+Check out [config color schemes](#Config-color-schemes) -->
+<!-- 
 ## How to add a series of data to the polygons (e.g., time series, soil depth, etc.)?
 When the dataset contains dimensions, we can add add a __dimension control__ to the vis, which provides the ability to change any current dimension to a specific value. The __dimension control__ is imported as `dimension-control`. When you interact with the __dimension control__, the polygon layer would be updated.
 
@@ -153,7 +183,7 @@ When the dataset contains multiple, we can add add a variable control__ to the v
     gwfvis.add_plugin(vis_config, variable_control, 'main')
     ```
     ![variable control](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/F62636BA56E4451DAFF0A395EA30DBBE.png)
-_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `variable_control.py`._
+_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `variable_control.py`._ -->
 
 ## How to visualize polygon information (metadata) to the sidebar?
 There could be some information (metadata) for each polygon, which we can add a __metadata viewer__ to the vis. The __metadata viewer__ is imported as `metadata`. The metadata of current selected polygon, variable, and dimension would be shown.
