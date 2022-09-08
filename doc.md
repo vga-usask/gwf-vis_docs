@@ -17,7 +17,7 @@
     import gwfvis
     vis_config = gwfvis.load_vis_config()
     ```
-    The gwfvis api has been imported. A new variable `vis_config` has been initiated with default visualization configuration. We will now add new features to `vis_config` and then visualize it. 
+    The gwfvis api has been imported. A new variable `vis_config` has been initiated with default visualization configuration. You now can add new features to `vis_config` and then visualize it. 
 
 1. Add the default map layer 
     ```py 
@@ -50,7 +50,7 @@ dataset = 'http://gwfvis.usask.ca/RiverFlow/api/file/fetch/public/datasets/catch
 
 ## Adding a new layer to the map
 
-You can add a new layer (e.g., polygons, rivers, etc.) to the map by using `gwfvis.add_map_element()` with two parameters. 
+You can add a new layer (e.g., polygons, rivers, etc.) to the map using `gwfvis.add_map_element()` with two parameters. 
 
 1. The `vis_config` itself.
 1. The type of the layer (e.g., `'geojson-layer'`, `'tile-layer'`, etc.). See [details](#All-current-provided-types).
@@ -60,7 +60,7 @@ polygons = gwfvis.add_map_element(
     vis_config, 'geojson-layer' # create the layer
 )
 ```
-We now configure the properties of the layer by using `gwfvis.update_props()`.
+Configure the properties of the layer using `gwfvis.update_props()`.
 ```py  
 gwfvis.update_props(
     polygons, # configure the properties of the layer
@@ -80,19 +80,19 @@ See [config color schemes](#Config-color-schemes) for changing colors of the pol
  
 ## Exploring the series data associated with the polygons (e.g., over time, soil depth, etc.)
 
-To explore the series data associated with the polygon layer, we need create the follwing two controls over the map. 
+To explore the series data associated with the polygon layer, you need to create the follwing two controls over the map. 
 
 1. `variable-control`: This allows us to select a particular variable associated to the polygon using a dropdown menu (e.g., temp)
 2. `dimension-control`: This allows us to select a dimension of the selected variable over which it varies (e.g., time, soil depth).  
 
-Both of these controls can be added using `gwfvis.add_main_view_element()` and then configuring the properties by using `gwfvis.update_props()`.
+Both of these controls can be added using `gwfvis.add_main_view_element()` and then configuring the properties using `gwfvis.update_props()`.
 
 ```py
     variable_control = gwfvis.add_main_view_element(
         vis_config, 'variable-control'    # create the control
     )
     gwfvis.update_props(
-        variable_control, # configure the properties of the layer
+        variable_control, # configure the properties of the control
         {    
             'width': '40rem',  # set the width of the container 
             'dataSource': dataset # data source 
@@ -102,7 +102,7 @@ Both of these controls can be added using `gwfvis.add_main_view_element()` and t
         vis_config, 'dimension-control'   # create the control
     )
     gwfvis.update_props(
-        dimension_control, # configure the properties of the layer
+        dimension_control, # configure the properties of the control
         {     
             'width': '40rem',  # set the width of the container           
             'dataSource': dataset # data source
@@ -185,10 +185,20 @@ When the dataset contains multiple, we can add add a variable control__ to the v
     ![variable control](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/F62636BA56E4451DAFF0A395EA30DBBE.png)
 _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `variable_control.py`._ -->
 
-## How to visualize polygon information (metadata) to the sidebar?
-There could be some information (metadata) for each polygon, which we can add a __metadata viewer__ to the vis. The __metadata viewer__ is imported as `metadata`. The metadata of current selected polygon, variable, and dimension would be shown.
+## Exploring polygon information (metadata) to the sidebar
 
-#### Example: Creating a __metadata viewer__
+If the polygons contain metadata, then you can add a metadata viewer using 
+`gwfvis.add_sidebar_element()`.
+```py
+gwfvis.add_sidebar_element(vis_config, 'metadata')
+```
+When you select a polygon, its metadata, currently selected variable and  dimension values are shown on the metadata viewer.  Try `metadata.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
+![metadata](./images/metadata.png)
+
+<!-- ## How to visualize polygon information (metadata) to the sidebar?
+There could be some information (metadata) for each polygon, which we can add a __metadata viewer__ to the vis. The __metadata viewer__ is imported as `metadata`. The metadata of current selected polygon, variable, and dimension would be shown. -->
+
+<!-- #### Example: Creating a __metadata viewer__
 1. Define the __metadata viewer__.
     ```py
     metadata = {
@@ -199,8 +209,24 @@ There could be some information (metadata) for each polygon, which we can add a 
     ```py 
     gwfvis.add_plugin(vis_config, metadata, 'sidebar')
     ```
-_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `metadata.py`._
+_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `metadata.py`._ -->
 
+## Selecting and comparing information of multiple polygons
+
+If you want to select multiple polygons and compare them, then you can add a `user-selection` control to the sidebar using `gwfvis.add_sidebar_element()`.
+
+```py
+gwfvis.add_sidebar_element(
+    vis_config, 
+    'user-selection', 
+    None,             # do not have any configurable properties 
+    {'slot': 'top'}   # position on the sidebar
+)
+```
+When you select a polygon and click the pin current button, a reference for that polygon will be created. Clicking on the reference and remove current button would remove the selection.  Try `multiselect.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
+![multi-select](./images/multiselect.png)
+
+<!-- 
 ## How to pin polygons?
 When you want to pin some locations, you can add a __user selection control__.
 
@@ -218,9 +244,33 @@ When you want to pin some locations, you can add a __user selection control__.
     ```py 
     gwfvis.add_plugin(vis_config, user_selection, 'sidebar')
     ```
-_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `user_selection.py`._
+_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `user_selection.py`._ -->
 
+## Adding a chart (e.g., line chart, radar chart) to visualize polygon information
 
+You can add a chart to the sidebar by using `gwfvis.add_sidebar_element()` with two parameters. 
+
+1. The `vis_config` itself.
+1. The type of the chart (e.g., `'line chart'`, `'radar chart'`, etc.). See [details](#All-current-provided-charts).
+
+```py
+line_chart = gwfvis.add_sidebar_element(vis_config, 'line-chart') # create a chart 
+```
+
+Configure the properties of the chart using `gwfvis.update_props()`.
+```py 
+gwfvis.update_props(
+    line_chart, # configure the properties of the chart
+    {     
+        'dimension': 'time',  # the x-axis of the line chart         
+        'dataSource': dataset # data source
+    }
+)  
+```
+If you select a polygon, then the line chart for the currently selected variable will appear on the side bar. Try `line-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
+![line chart](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/2987A7D91327440FB5F2D568227D8CA8.png)
+
+<!-- 
 ## How to add a chart (e.g., line chart, rader chart)?
 When we want to see some statistics, we can add some charts into the vis. 
 
@@ -234,28 +284,40 @@ When we want to see some statistics, we can add some charts into the vis.
         }
     }
     ```
-    ![line chart](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/2987A7D91327440FB5F2D568227D8CA8.png)
-    __Not sure if we need to give this level of details as below__
-    If you want to always show information about specific variables, you can configure it as below:
-    ```py
-    line_chart = {
-        "import": "line-chart",
-        "props": {
-            "variableNames": ["scalarAquiferBaseflow", "scalarRainPlusMelt", "scalarTotalRunoff"],
-            "dimension": "time"
-        }
+    ![line chart](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/2987A7D91327440FB5F2D568227D8CA8.png) -->
+
+
+<!-- __Not sure if we need to give this level of details as below__ -->
+
+If you want to show information about specific variables instead of the currently selected one, then configure the chart by passing the variable names. 
+```py
+gwfvis.update_props(
+    line_chart, # configure the properties of the chart
+    {     
+        'variableNames': [
+            'scalarAquiferBaseflow', 
+            'scalarRainPlusMelt', 
+            'scalarTotalRunoff'
+        ],
+        'dimension': 'time',  # the x-axis of the line chart         
+        'dataSource': dataset # data source
     }
-    ```
-1. Add the __line chart__ to `vis_config`. In this case, we are adding it into the __sidebar__.
+)  
+```
+<!-- 1. Add the __line chart__ to `vis_config`. In this case, we are adding it into the __sidebar__.
     ```py 
     gwfvis.add_plugin(vis_config, line_chart, 'sidebar')
-    ```
+    ``` -->
+Try `multi-line-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
     ![line chart for specific variables](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/BB6D5E63A92F4D19A5216CCF5E1E3242.png)
-_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `line_chart.py`._
+<!-- _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `line_chart.py`._ -->
     
-Check out [some advanced interactions for the line chart](#Advanced-interactions-for-the-line-chart)
+See [some advanced interactions for the line chart](#Advanced-interactions-for-the-line-chart) (e.g., zoom in and out, or navigating to a specific dimension value). 
 
-#### Example: Creating a __radar chart__
+You can add a `radar-chart` in the same way using `gwfvis.add_sidebar_element()'. Try `radar-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
+![radar chart](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/021AC1541063473F92EE63CDF54F22E9.png)
+
+<!-- #### Example: Creating a __radar chart__
 1. Define the __radar chart__. In this case, the chart shows information of current selected polygon, variable, and dimension values.
     ```py
     radar_chart = {
@@ -268,9 +330,9 @@ Check out [some advanced interactions for the line chart](#Advanced-interactions
     ```
     ![radar chart](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/021AC1541063473F92EE63CDF54F22E9.png)
 The __radar chart__ would show the current selected location as well as all pinned locations.
-_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `radar_chart.py`._
+_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `radar_chart.py`._ -->
 
-## How to create a `.gwfvisdb` database from csv, shapefiles, or netCDF
+## Creating a `.gwfvisdb` database from csv, shapefiles, or netCDF
 
 - You can transform your data into a `.gwfvisdb` database and upload in the data directory
 - Python scripts for this will be prvided in the future
