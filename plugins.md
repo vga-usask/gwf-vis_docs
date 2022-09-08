@@ -175,7 +175,7 @@ This would change the color scheme to a color gradient of `['blue', 'green', 'ye
 }
 ```
 Assuming `scalarSWE` is a variable name. In this case, `scalarSWE` variable would have the color scheme of a color gradient of `['blue', 'green', 'yellow', 'red']` and all other varibales would have the build-in `blue-red` color scheme.  
-If you also uses a __legend__, you should pass the same `colorScheme` dict to `props` of the __legend__.
+If you also uses a __legend__, you should pass the same `colorScheme` dict to `props` of the __legend__.  
 Try `color_config.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
 
 ### Config style
