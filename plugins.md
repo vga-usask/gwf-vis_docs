@@ -91,6 +91,9 @@ It draws a radar chart of multiple variables for current dimension and location 
 ### More
 to be added...
 
+## Implement your own plugins
+To be added...
+
 ## Appendix
 
 ### Map Layer Types
