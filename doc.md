@@ -66,7 +66,7 @@ dataset = 'http://gwfvis.usask.ca/RiverFlow/api/file/fetch/public/datasets/catch
 You can add a new layer (e.g., polygons, rivers, etc.) to the map using `gwfvis.add_map_element()` with two parameters. 
 
 1. The `vis_config` itself.
-1. The type of the layer (e.g., `'geojson-layer'`, `'tile-layer'`, etc.). See [details](./built-in-plugins.md#map-layer).
+1. The type of the layer (e.g., `'geojson-layer'`, `'tile-layer'`, etc.). See [details](./plugins.md#map-layer).
 
 ```py
 polygons = gwfvis.add_map_element(
@@ -88,7 +88,7 @@ Try `polygons.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
 
 ![default map](./images/addlayer.png)
 
-See [config color schemes](./built-in-plugins.md#config-color-schemes) for changing colors of the polygons, or [config style](./built-in-plugins.md#config-style) for more details.
+See [config color schemes](./plugins.md#config-color-schemes) for changing colors of the polygons, or [config style](./plugins.md#config-style) for more details.
 
 <!-- We should chnage the style, not only color [line width - transperancy]-->
  
@@ -268,7 +268,7 @@ _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `
 You can add a chart to the sidebar by using `gwfvis.add_sidebar_element()` with two parameters. 
 
 1. The `vis_config` itself.
-1. The type of the chart (e.g., `'line chart'`, `'radar chart'`, etc.). See [details](./built-in-plugins.md#chart).
+1. The type of the chart (e.g., `'line chart'`, `'radar chart'`, etc.). See [details](./plugins.md#chart).
 
 ```py
 line_chart = gwfvis.add_sidebar_element(vis_config, 'line-chart') # create a chart 
@@ -331,7 +331,7 @@ Try `multi-line-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
 ![line chart for specific variables](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/BB6D5E63A92F4D19A5216CCF5E1E3242.png)
 <!-- _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `line_chart.py`._ -->
     
-See [some advanced interactions for the line chart](./built-in-plugins.md#advanced-interactions-for-the-line-chart) (e.g., zoom in and out, or navigating to a specific dimension value). 
+See [some advanced interactions for the line chart](./plugins.md#advanced-interactions-for-the-line-chart) (e.g., zoom in and out, or navigating to a specific dimension value). 
 
 You can add a `radar-chart` in the same way using `gwfvis.add_sidebar_element()`. Try `radar-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
 
