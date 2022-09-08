@@ -410,3 +410,6 @@ gwfvis.render_pyplot_figure()
 Now, if you click on the triangle button on the upper-right corner, your plot would be shown in output panel. Try `pyplot.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
 
 <!-- _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `pyplot.py`._ -->
+
+## More details about plugins
+Check [here](./plugins.md).

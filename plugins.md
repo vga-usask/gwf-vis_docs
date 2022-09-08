@@ -131,7 +131,7 @@ We provide the ability of change color scheme for the GeoJSON layer and the lege
 Assume we have a config of GeoJSON layer like below:
 ```py
 {
-    ...
+    # ...
     'props': {
         'layerName': 'Catchment',
         'dataSource': dataURL
@@ -141,7 +141,7 @@ Assume we have a config of GeoJSON layer like below:
 If we want to add a custom color scheme, we should add the `colorScheme`:
 ```py
 {
-    ...
+    # ...
     'props': {
         'layerName': 'Catchment',
         'dataSource': dataURL,
@@ -157,7 +157,7 @@ If we want to add a custom color scheme, we should add the `colorScheme`:
 This would change the color scheme to a color gradient of `['blue', 'green', 'yellow', 'red']`. In this example, the key `''` stands for all variables. We could also change color schemes for different variables:
 ```py
 {
-    ...
+    # ...
     'props': {
         'layerName': 'Catchment',
         'dataSource': dataURL,
@@ -176,6 +176,7 @@ This would change the color scheme to a color gradient of `['blue', 'green', 'ye
 ```
 Assuming `scalarSWE` is a variable name. In this case, `scalarSWE` variable would have the color scheme of a color gradient of `['blue', 'green', 'yellow', 'red']` and all other varibales would have the build-in `blue-red` color scheme.  
 If you also uses a __legend__, you should pass the same `colorScheme` dict to `props` of the __legend__.
+Try `color_config.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
 
 ### Config style
 
