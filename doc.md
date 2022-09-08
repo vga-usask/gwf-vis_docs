@@ -314,7 +314,7 @@ Try `multi-line-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
     
 See [some advanced interactions for the line chart](#Advanced-interactions-for-the-line-chart) (e.g., zoom in and out, or navigating to a specific dimension value). 
 
-You can add a `radar-chart` in the same way using `gwfvis.add_sidebar_element()'. Try `radar-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
+You can add a `radar-chart` in the same way using `gwfvis.add_sidebar_element()`. Try `radar-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
 ![radar chart](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/021AC1541063473F92EE63CDF54F22E9.png)
 
 <!-- #### Example: Creating a __radar chart__
@@ -352,11 +352,12 @@ _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `
 - variable-control
 - legend
 
-## Using `numpy` and `pyplot`
+## Using python programming (`numpy` and `pyplot`)
 
 We provide `numpy` and `matplotlib.pyplot`, which gives you the ability of plotting your own charts within the programmable interface. 
 
-Let us get started with a simple code snippet (,which is obtained from [here](https://queirozf.com/entries/matplotlib-pyplot-by-example#change-figure-size)).
+Let us get started with a simple python script. 
+<!-- , which is obtained from [here](https://queirozf.com/entries/matplotlib-pyplot-by-example#change-figure-size). -->
 ```py
 import numpy as np
 import matplotlib.pyplot as plt
@@ -373,15 +374,15 @@ fig.set_size_inches(8,3)
 plt.show()
 ```
 
-If you run the above code snippet, it would generate a scatter plot for you. By following below steps, you can show it directly in the programmbale interface.
+If you run the above script in python, it would generate a scatter plot for you. To see it directly in the programmbale interface, make the following two changes.
 
 1. Add import of `gwfvis`.
     ```py
     import gwfvis
     ```
-1. Replace `plot.show()` to `gwfvis.render_pyplot_figure()`.
+1. Replace `plot.show()` with `gwfvis.render_pyplot_figure()`.
 
-That is it. Then we get the code like this:
+The complete script is as follows: 
 ```py
 import numpy as np
 import matplotlib.pyplot as plt
@@ -398,8 +399,8 @@ fig.set_size_inches(8,3)
 
 gwfvis.render_pyplot_figure()
 ```
-Now, if you click on the triangle button on the upper-right corner, your plot would be shown in the programmable interface.
-_Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `pyplot.py`._
+Now, if you click on the triangle button on the upper-right corner, your plot would be shown in output panel. Try `pyplot.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
+<!-- _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `pyplot.py`._ -->
 
 ## Advanced interactions for the line chart
 ### Checking specific values
