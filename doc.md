@@ -66,7 +66,7 @@ dataset = 'http://gwfvis.usask.ca/RiverFlow/api/file/fetch/public/datasets/catch
 You can add a new layer (e.g., polygons, rivers, etc.) to the map using `gwfvis.add_map_element()` with two parameters. 
 
 1. The `vis_config` itself.
-1. The type of the layer (e.g., `'geojson-layer'`, `'tile-layer'`, etc.). See [details](#All-current-provided-types).
+1. The type of the layer (e.g., `'geojson-layer'`, `'tile-layer'`, etc.). See [details](./built-in-plugins.md#map-layer).
 
 ```py
 polygons = gwfvis.add_map_element(
@@ -88,7 +88,7 @@ Try `polygons.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
 
 ![default map](./images/addlayer.png)
 
-See [config color schemes](#Config-color-schemes) for changing colors of the polygons, or [config style](#Config-style) for more details.
+See [config color schemes](./built-in-plugins.md#config-color-schemes) for changing colors of the polygons, or [config style](./built-in-plugins.md#config-style) for more details.
 
 <!-- We should chnage the style, not only color [line width - transperancy]-->
  
@@ -268,7 +268,7 @@ _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `
 You can add a chart to the sidebar by using `gwfvis.add_sidebar_element()` with two parameters. 
 
 1. The `vis_config` itself.
-1. The type of the chart (e.g., `'line chart'`, `'radar chart'`, etc.). See [details](#All-current-provided-charts).
+1. The type of the chart (e.g., `'line chart'`, `'radar chart'`, etc.). See [details](./built-in-plugins.md#chart).
 
 ```py
 line_chart = gwfvis.add_sidebar_element(vis_config, 'line-chart') # create a chart 
@@ -331,7 +331,7 @@ Try `multi-line-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
 ![line chart for specific variables](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/BB6D5E63A92F4D19A5216CCF5E1E3242.png)
 <!-- _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `line_chart.py`._ -->
     
-See [some advanced interactions for the line chart](#Advanced-interactions-for-the-line-chart) (e.g., zoom in and out, or navigating to a specific dimension value). 
+See [some advanced interactions for the line chart](./built-in-plugins.md#advanced-interactions-for-the-line-chart) (e.g., zoom in and out, or navigating to a specific dimension value). 
 
 You can add a `radar-chart` in the same way using `gwfvis.add_sidebar_element()`. Try `radar-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
 
@@ -359,18 +359,6 @@ _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `
 
 
 # Appendix
-
-## All current provided plugins
-- _data-fetcher_
-- tile-layer
-- geojson-layer
-- user-selection
-- metadata
-- line-chart
-- radar-chart
-- dimension-control
-- variable-control
-- legend
 
 ## Using python programming (`numpy` and `pyplot`)
 
@@ -422,71 +410,3 @@ gwfvis.render_pyplot_figure()
 Now, if you click on the triangle button on the upper-right corner, your plot would be shown in output panel. Try `pyplot.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
 
 <!-- _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `pyplot.py`._ -->
-
-## Advanced interactions for the line chart
-### Checking specific values
-When you hover your mouse to the lines, a tooltip of its specific value would be shown.
-
-### Axis zooming in/out and panning
-When you move your mouse to axes of the line charts, you are able you drag to pan and scroll to zoom in/out. To prevent interrupt the normal scroll flow, to make a axis zooming, you need to hold `Ctrl` button and then scroll. If you are using a touch pad, you could just pinch over the axes to zoom in/out.
-
-### Jumping to specific dimension value
-As the `x` axis stands for the dimension, we might find some interesting position across the axis. When you checking the specific values, you can click it, which would navigate the dimension to the selected value (same effect as you drag the bar of the __dimension control__).
-
-### Disable a line
-When showing multiple lines, you can click a legend item to disable the coresponding line.
-
-## Config color schemes
-We provide the ability of change color scheme for the GeoJSON layer and the legend. To do so, we need to pass a `colorScheme` value to the config. 
-Assume we have a config of GeoJSON layer like below:
-```py
-{
-    ...
-    'props': {
-        'layerName': 'Catchment',
-        'dataSource': dataURL
-    }
-}
-```
-If we want to add a custom color scheme, we should add the `colorScheme`:
-```py
-{
-    ...
-    'props': {
-        'layerName': 'Catchment',
-        'dataSource': dataURL,
-        'colorScheme': {
-            '': {
-                'type': 'custom',
-                'scheme': ['blue', 'green', 'yellow', 'red']
-            }
-        }
-    }
-}
-```
-This would change the color scheme to a color gradient of `['blue', 'green', 'yellow', 'red']`. In this example, the key `''` stands for all variables. We could also change color schemes for different variables:
-```py
-{
-    ...
-    'props': {
-        'layerName': 'Catchment',
-        'dataSource': dataURL,
-        'colorScheme': {
-            '': {
-                'type': 'predefined',
-                'scheme': 'blue-red'
-            },
-            'scalarSWE': {
-                'type': 'custom',
-                'scheme': ['blue', 'green', 'yellow', 'red']
-            }
-        }
-    }
-}
-```
-Assuming `scalarSWE` is a variable name. In this case, `scalarSWE` variable would have the color scheme of a color gradient of `['blue', 'green', 'yellow', 'red']` and all other varibales would have the build-in `blue-red` color scheme.  
-If you also uses a __legend__, you should pass the same `colorScheme` dict to `props` of the __legend__.
-
-## Config style
-
-To be added ...
