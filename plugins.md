@@ -1,7 +1,7 @@
 # Plugins
 The system is designed to be plugin based, which gives you the flexibility of customization and adding potential features of your own.
 
-## Built-in plugin List
+## Built-in plugin list
 We provided a set of built-in plugins, which are located in the `/public/plugins/default` directory. With the default config created by `gwfvis.load_vis_config()`, they are imported as below names.
 
 ### Data Fetcher
@@ -22,7 +22,25 @@ We provided a set of built-in plugins, which are located in the `/public/plugins
 - variable-control
 - legend
 
-## Built-in Plugin Details
+## Plugin containers
+Plugins can be put into different containers.
+
+### hidden
+This container hides the plugin's user control and used to put plugins that does not have a user control (such as layer plugins). You can use `gwfvis.add_map_element()` to add plugins into it.
+
+### main
+Plugins in this container would be presented as overlays on the map. You can use `gwfvis.add_main_view_element()` to add plugins into it.
+
+#### Container props
+- `width` The width of the plugin to be displayed.
+
+### sidebar
+Plugins in this container would be presented inside the sidebar. You can use `gwfvis.add_sidebar_element()` to add plugins into it.
+
+#### Container props
+- `slot` If a value `"top"` is presented, the plugin would go to the very top part of the sidebar and would not be affected by the vertical scroll bar.
+
+## Built-in plugin details
 
 ### _data-fetcher_
 This one is included within the default config, you do not need to worry about it.
