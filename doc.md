@@ -4,7 +4,7 @@
 1.	Create a file by right clicking on the left panel directory labeled with your nsid.
 1.	A newly created file will already have some code written in it.
 1.	Execute the code by clicking the top right triangle icon. This will create a default layout for geographic visualization in a new tab. 
-![default map](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/map.jpg)
+![interactive interface](./images/intro-8.gif)
 
 <!--img src="https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/map.jpg"
      alt="default map"
@@ -40,6 +40,17 @@
     ```py
     gwfvis.render(vis_config)
     ```
+    ![default map](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/map.jpg)
+
+## An inspiring example
+Try `catchment.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/) to explore an interactive visual analytics interface. 
+![interactive interface](./images/intro-5.gif)
+In the following we show how to create various components of the interface using the gwfvis api. We will use the following major functions of gwfvis.
+
+1. `gwfvis.add_map_element()` to add an element to the map layer
+1. `gwfvis.add_sidebar_element()` to add an element to the side bar
+1. `gwfvis.add_main_view_element()` to add an element over the main view
+1. `gwfvis.update_props()` to configure the properties of an element
 
 ## Defining a dataset variable
 
@@ -465,3 +476,7 @@ This would change the color scheme to a color gradient of `['blue', 'green', 'ye
 ```
 Assuming `scalarSWE` is a variable name. In this case, `scalarSWE` variable would have the color scheme of a color gradient of `['blue', 'green', 'yellow', 'red']` and all other varibales would have the build-in `blue-red` color scheme.  
 If you also uses a __legend__, you should pass the same `colorScheme` dict to `props` of the __legend__.
+
+## Config style
+
+To be added ...
