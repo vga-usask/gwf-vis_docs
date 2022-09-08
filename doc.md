@@ -44,7 +44,9 @@
 
 ## An inspiring example
 Try `catchment.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/) to explore an interactive visual analytics interface. 
+
 ![interactive interface](./images/intro-5.gif)
+
 In the following we show how to create various components of the interface using the gwfvis api. We will use the following major functions of gwfvis.
 
 1. `gwfvis.add_map_element()` to add an element to the map layer
@@ -83,6 +85,7 @@ gwfvis.update_props(
 )
 ```
 Try `polygons.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
+
 ![default map](./images/addlayer.png)
 
 See [config color schemes](#Config-color-schemes) for changing colors of the polygons, or [config style](#Config-style) for more details.
@@ -122,7 +125,8 @@ Both of these controls can be added using `gwfvis.add_main_view_element()` and t
 ```
 When you interact with these controls, the polygon layer gets updated. 
 Try `series_data.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
-![Series Data](./images/series.png)
+
+![Series Data](./images/intro-7.gif)
 <!-- ## How to add a legend for a polygon layer?
 As the polygons are usually colored, adding a legend would be helpful to understand the colors.
 
@@ -204,7 +208,8 @@ If the polygons contain metadata, then you can add a metadata viewer using
 gwfvis.add_sidebar_element(vis_config, 'metadata')
 ```
 When you select a polygon, its metadata, currently selected variable and  dimension values are shown on the metadata viewer.  Try `metadata.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
-![metadata](./images/metadata.png)
+
+![metadata](./images/intro-10.gif)
 
 <!-- ## How to visualize polygon information (metadata) to the sidebar?
 There could be some information (metadata) for each polygon, which we can add a __metadata viewer__ to the vis. The __metadata viewer__ is imported as `metadata`. The metadata of current selected polygon, variable, and dimension would be shown. -->
@@ -235,7 +240,8 @@ gwfvis.add_sidebar_element(
 )
 ```
 When you select a polygon and click the pin current button, a reference for that polygon will be created. Clicking on the reference and remove current button would remove the selection.  Try `multiselect.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
-![multi-select](./images/multiselect.png)
+
+![multi-select](./images/intro-9.gif)
 
 <!-- 
 ## How to pin polygons?
@@ -279,6 +285,7 @@ gwfvis.update_props(
 )  
 ```
 If you select a polygon, then the line chart for the currently selected variable will appear on the side bar. Try `line-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
+
 ![line chart](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/2987A7D91327440FB5F2D568227D8CA8.png)
 
 <!-- 
@@ -320,12 +327,14 @@ gwfvis.update_props(
     gwfvis.add_plugin(vis_config, line_chart, 'sidebar')
     ``` -->
 Try `multi-line-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
-    ![line chart for specific variables](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/BB6D5E63A92F4D19A5216CCF5E1E3242.png)
+
+![line chart for specific variables](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/BB6D5E63A92F4D19A5216CCF5E1E3242.png)
 <!-- _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `line_chart.py`._ -->
     
 See [some advanced interactions for the line chart](#Advanced-interactions-for-the-line-chart) (e.g., zoom in and out, or navigating to a specific dimension value). 
 
 You can add a `radar-chart` in the same way using `gwfvis.add_sidebar_element()`. Try `radar-chart.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
+
 ![radar chart](https://www.cs.usask.ca/faculty/dmondal/Presentations/pic/021AC1541063473F92EE63CDF54F22E9.png)
 
 <!-- #### Example: Creating a __radar chart__
@@ -411,6 +420,7 @@ fig.set_size_inches(8,3)
 gwfvis.render_pyplot_figure()
 ```
 Now, if you click on the triangle button on the upper-right corner, your plot would be shown in output panel. Try `pyplot.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/). 
+
 <!-- _Go to [GWF Vis](http://gwfvis.usask.ca/RiverFlow/) and check the example file `pyplot.py`._ -->
 
 ## Advanced interactions for the line chart
