@@ -413,3 +413,6 @@ Now, if you click on the triangle button on the upper-right corner, your plot wo
 
 ## More details about plugins
 Check [here](./plugins.md).
+
+
+

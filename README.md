@@ -39,3 +39,24 @@ You may edit the files in the public directory, but the system does not allow yo
 
 To learn more, please check the [documentation](./doc.md). You can also access the documentation by clicking on the `?` mark on the top right corner of the programming panel.
  
+
+
+ 
+
+<!-- Default Statcounter code for river-flow
+https://github.com/river-flow-vis/docs -->
+<script type="text/javascript">
+var sc_project=12794055; 
+var sc_invisible=1; 
+var sc_security="93af89ae"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12794055/0/93af89ae/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
