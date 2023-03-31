@@ -41,7 +41,7 @@ To learn more, please check the [documentation](./doc.md). You can also access t
  
 
 
- 
+ <div class="statcounter2"   text="#ffffff" link="#ff0000" vlink="#ff0000" alink="#ff0000">
 
 <!-- Default Statcounter code for river-flow
 https://github.com/river-flow-vis/docs -->
@@ -60,3 +60,4 @@ src="https://c.statcounter.com/12794055/0/93af89ae/1/"
 alt="Web Analytics"
 referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
+</div>
