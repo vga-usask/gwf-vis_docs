@@ -53,7 +53,7 @@ var sc_security="93af89ae";
 <script type="text/javascript"
 src="https://www.statcounter.com/counter/counter.js"
 async></script>
-<noscript><div class="statcounter"><a title="Web Analytics"
+<noscript><div class="statcounter"   text="#ffffff" link="#ff0000" vlink="#ff0000" alink="#ff0000"><a title="Web Analytics"
 href="https://statcounter.com/" target="_blank"><img
 class="statcounter"
 src="https://c.statcounter.com/12794055/0/93af89ae/1/"
