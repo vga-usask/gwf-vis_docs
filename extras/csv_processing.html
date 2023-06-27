@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>GWFVISDB Data Processing</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+  </head>
+  <body>
+    <h1>GWFVISDB Data Processing</h1>
+    <hr />
+    <button onclick="loadCSVFile()">Load CSV File</button>
+    <hr />
+    <table id="preview-table"></table>
+    <hr />
+    <div id="columns-info-summary"></div>
+    <hr />
+    <button onclick="processData()">Process</button>
+
+    <script type="module">
+      import { csvParse } from "https://cdn.skypack.dev/d3-dsv@3";
+
+      let file;
+      let csv;
+      let columnsInfo;
+      let SQL;
+      let datasetName;
+      let dataUnit;
+
+      window.loadCSVFile = async () => {
+        file = await openCSVFile();
+        const csvText = await file.text();
+        csv = await readCSVText(csvText);
+        generatePreview(csv);
+        columnsInfo = obtainColumnsInfo();
+        showColumnsInfo();
+      };
+
+      window.processData = async () => {
+        SQL = await loadSqlJs();
+        const fileHandle = await window.showSaveFilePicker({
+          types: [
+            {
+              description: "GWF Vis DB File",
+              accept: { "application/x-sqlite3": [".gwfvisdb"] }
+            }
+          ]
+        });
+        datasetName = prompt("Please enter the dataset name", "no_name");
+        dataUnit = prompt("Please enter the data unit (optional)", "");
+        const db = generateDB();
+        await writeDBToFile(db, fileHandle);
+        alert("Done.");
+      };
+
+      async function writeDBToFile(db, fileHandle) {
+        const outputFileWritableStream = await fileHandle.createWritable();
+        const DBData = db.export();
+        await outputFileWritableStream.write(DBData);
+        await outputFileWritableStream.close();
+      }
+
+      function generateDB() {
+        const db = new SQL.Database();
+        generateInfoTable(db);
+        generateLocationTable(db);
+        generateDimensionTable(db);
+        generateVariableTable(db);
+        generateVariableDimensionTable(db);
+        generateValueTable(db);
+        return db;
+      }
+
+      function generateValueTable(db) {
+        console.log('generating "value" table...');
+        db.run(`
+          CREATE TABLE value (
+              location INTEGER NOT NULL,
+              variable INTEGER NOT NULL,
+              dimension_0 INTEGER NOT NULL,
+              value FLOAT,
+              FOREIGN KEY (variable) REFERENCES variable (id),
+              PRIMARY KEY (location, variable, dimension_0)
+          )
+        `);
+        csv?.forEach((location) =>
+          columnsInfo?.timeSeries?.forEach((timestamp, i) =>
+            db.run(
+              `INSERT INTO value (location, variable, dimension_0, value) values (?, ?, ?, ?)`,
+              [+location?.id, 0, i, +location?.[timestamp]]
+            )
+          )
+        );
+      }
+
+      function generateVariableDimensionTable(db) {
+        console.log('generating "variable_dimension" table...');
+        db.run(`
+          CREATE TABLE variable_dimension (
+              variable INTEGER NOT NULL,
+              dimension INTEGER NOT NULL,
+              FOREIGN KEY (variable) REFERENCES variable (id),
+              FOREIGN KEY (dimension) REFERENCES dimension (id),
+              PRIMARY KEY (variable, dimension)
+          )
+        `);
+        db.run(
+          `INSERT INTO variable_dimension (variable, dimension) values (?, ?)`,
+          [0, 0]
+        );
+      }
+
+      function generateVariableTable(db) {
+        console.log('generating "variable" table...');
+        db.run(`
+          CREATE TABLE variable (
+              id INTEGER PRIMARY KEY,
+              name VARCHAR NOT NULL,
+              unit VARCHAR,
+              description TEXT
+          )
+        `);
+        db.run(
+          `INSERT INTO variable (id, name, unit, description) values (?, ?, ?, ?)`,
+          [0, datasetName, dataUnit, null]
+        );
+      }
+
+      function generateDimensionTable(db) {
+        console.log('generating "dimension" table...');
+        db.run(`
+          CREATE TABLE dimension (
+              id INTEGER PRIMARY KEY,
+              name VARCHAR NOT NULL,
+              size INTEGER NOT NULL,
+              description TEXT,
+              value_labels TEXT
+          )
+        `);
+        db.run(
+          `INSERT INTO dimension (id, name, size, description, value_labels) values (?, ?, ?, ?, ?)`,
+          [
+            0,
+            "time",
+            columnsInfo?.timeSeries?.length,
+            null,
+            JSON.stringify(columnsInfo?.timeSeries)
+          ]
+        );
+      }
+
+      function generateLocationTable(db) {
+        console.log('generating "location" table...');
+        db.run(`
+          CREATE TABLE location (
+              id INTEGER PRIMARY KEY,
+              geometry TEXT,
+              metadata TEXT
+          )
+        `);
+        csv?.forEach((location) =>
+          db.run(
+            `INSERT INTO location (id, geometry, metadata) values (?, ?, ?)`,
+            [
+              +location?.id,
+              JSON.stringify({
+                coordinates: [+location?.lon, +location?.lat],
+                type: "Point"
+              }),
+              JSON.stringify(
+                Object.fromEntries(
+                  columnsInfo?.metadata?.map((key) => [key, location?.[key]])
+                )
+              )
+            ]
+          )
+        );
+      }
+
+      function generateInfoTable(db) {
+        console.log('generating "info" table...');
+        db.run(`
+          CREATE TABLE info (
+              key VARCHAR PRIMARY KEY,
+              value TEXT,
+              label VARCHAR
+          )
+        `);
+        db.run(`INSERT INTO info (key, value, label) values (?, ?, ?)`, [
+          "name",
+          datasetName,
+          "Name"
+        ]);
+      }
+
+      async function loadSqlJs() {
+        const initSqlJs = window.initSqlJs;
+        return await initSqlJs({
+          locateFile: (file) => `https://sql.js.org/dist/${file}`
+        });
+      }
+
+      function showColumnsInfo() {
+        const summaryElement = document.querySelector("#columns-info-summary");
+        summaryElement.innerHTML = /* html */ `
+          ID: ${columnsInfo?.id}
+          <br/>
+          Metadata: ${columnsInfo?.metadata?.join(", ")}
+          <br/>
+          Lat/Lon: ${columnsInfo?.lat}/${columnsInfo?.lon}
+          <br/>
+          Time Series: ${columnsInfo?.timeSeries?.join(", ")}
+        `;
+      }
+
+      function obtainColumnsInfo() {
+        const columns = csv?.columns;
+        const id = columns?.at(0);
+        const latIndex = columns?.indexOf("lat");
+        const metadata = columns?.slice(1, latIndex);
+        const lat = columns?.at(latIndex);
+        const lon = columns?.at(latIndex + 1);
+        const timeSeries = columns?.slice(latIndex + 2);
+        return { id, metadata, lat, lon, timeSeries };
+      }
+
+      function generatePreview(csv) {
+        const tableElement = document.querySelector("#preview-table");
+        if (tableElement) {
+          tableElement.innerHTML = /* html */ `
+            <tr>
+              ${csv?.columns?.map((d) => /* html */ `<th>${d}</th>`)?.join("")}
+            </tr>
+            ${csv
+              ?.slice(0, 10)
+              ?.map(
+                (row) => /* html */ `
+              <tr>
+                ${csv?.columns
+                  ?.map(
+                    (columnName) => /* html */ `<td>${row[columnName]}</td>`
+                  )
+                  ?.join("")}
+              </tr>
+            `
+              )
+              ?.join("")}
+          `;
+        }
+      }
+
+      async function readCSVText(text) {
+        const data = csvParse(text);
+        return data;
+      }
+
+      async function openCSVFile() {
+        const [fileHandle] = await window.showOpenFilePicker({
+          types: [
+            {
+              description: "CSV",
+              accept: {
+                "text/csv": [".csv"]
+              }
+            }
+          ],
+          excludeAcceptAllOption: false,
+          multiple: false
+        });
+        const file = await fileHandle?.getFile();
+        return file;
+      }
+    </script>
+  </body>
+</html>
