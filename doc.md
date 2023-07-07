@@ -414,5 +414,9 @@ Now, if you click on the triangle button on the upper-right corner, your plot wo
 ## More details about plugins
 Check [here](./plugins.md).
 
+## Simple CSV dataset processing
+You can download `extras/data_processing.html` for our example simple CSV dataset processing, which let you load a formatted CSV file and convert it to `gwfvisdb` format that you can use in the system. 
 
+### Simple CSV format
+In the CSV file, each row should stand for a specific location. For each location, it should has multiple columns. The first column should always be `id`, which should be positive integers. The `id` column is followed by metadata columns, which can be multiple columns with custom names and can contain string or HTML content. The metadata columns are followed by `lat` and `lon` columns, which should contains floating numbers. After `lat` and `lon` columns, any following columns are considered as time series columns, which can have custom column names as labels and values should be floating numbers.
 
