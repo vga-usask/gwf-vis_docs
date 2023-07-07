@@ -71,6 +71,7 @@ It adds a __GeoJSON layer__ (polygons, lines, or points) to the map.
 - `variableName` If specified, the layer is bound to the specific variable.
 - `dimensions` If specified, the layer is bound to the specific dimension selection. You should pass a [dimension selection](#dimension-dict) in.
 - `colorScheme` If specified, the default color scheme is replaced. Check [here](#config-color-schemes) for more details.
+- `usePushPins` If `true`, the points would be shown as push pins.
 
 ### line-chart
 It draws a line chart across specific dimension values for the current selected location. Check [here](#advanced-interactions-for-the-line-chart) for some more interactions.
@@ -79,6 +80,7 @@ It draws a line chart across specific dimension values for the current selected 
 - `dataSource` _(required)_ The data source for the chart.
 - `dimension` _(required)_ The dimension name for the chart.
 - `variableNames` If specified, the chart are bound to the specific variables; otherwise the chart are bound to the current selected variable from the __variable control__. You should pass a string list in.
+- `locationLabelKey` If specified, the locations' labels, which are obtained from the specified field from metadata, would be shown instead of just showing location IDs. For example, if `locationLabelKey` is set as `my_label`, the location labels would be obtained from each location's `my_label` field of its metadata object.
 
 ### radar-chart
 It draws a radar chart of multiple variables for current dimension and location selection.
@@ -147,7 +149,7 @@ If we want to add a custom color scheme, we should add the `colorScheme`:
         'dataSource': dataURL,
         'colorScheme': {
             '': {
-                'type': 'custom',
+                'type': 'sequential',
                 'scheme': ['blue', 'green', 'yellow', 'red']
             }
         }
@@ -163,18 +165,19 @@ This would change the color scheme to a color gradient of `['blue', 'green', 'ye
         'dataSource': dataURL,
         'colorScheme': {
             '': {
-                'type': 'predefined',
-                'scheme': 'blue-red'
+                'type': 'sequential',
+                'scheme': 'interpolateOranges'
             },
             'scalarSWE': {
-                'type': 'custom',
-                'scheme': ['blue', 'green', 'yellow', 'red']
+                'type': 'quantize',
+                'scheme': 'schemeOranges[5]'
             }
         }
     }
 }
 ```
-Assuming `scalarSWE` is a variable name. In this case, `scalarSWE` variable would have the color scheme of a color gradient of `['blue', 'green', 'yellow', 'red']` and all other varibales would have the build-in `blue-red` color scheme.  
+Assuming `scalarSWE` is a variable name. In this case, `scalarSWE` variable would have the color scheme of a colors of 5 levels of orange color and all other varibales would have the gradient of orange color scheme.  
+The avaiable types are `"sequential"`, `"quantize"`, and `""quantile`. For each type, pre-defined and custom scheme could be used. For custom schemes, a list of color strings should be passed, such as `['blue', 'green', 'yellow', 'red']`. For pre-defined schemes, please refer to color scheme definitions at [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic) for color scheme names. When using the pre-defined color schemes, you should pass it as a single sting, such as `"interpolateOranges"` or `"schemeOranges[5]"`. Note that for `"sequential"` type, you should use diverging color schemes; for `"quantize"` and `""quantile` types, you should use categorical color schemes.  
 If you also uses a __legend__, you should pass the same `colorScheme` dict to `props` of the __legend__.  
 Try `color_config.py` in [GWFVis](http://gwfvis.usask.ca/RiverFlow/).
 
